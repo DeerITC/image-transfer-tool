@@ -2,7 +2,7 @@ import os
 import requests
 
 # Specify the file to send
-FILE_PATH = "sender/cat.jpg"
+FILE_PATH = "cat.jpg"
 RECEIVER_URL = "http://receiver:5000/upload"
 
 def send_file():

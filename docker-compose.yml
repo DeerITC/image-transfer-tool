@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  sender:
+    build:
+      context: ./sender
+    ports:
+      - "5000:5000"
+
+  receiver:
+    build:
+      context: ./receiver
+    ports:
+      - "5001:5001"
