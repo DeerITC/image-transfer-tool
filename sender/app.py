@@ -1,23 +1,17 @@
-import os
-import requests
+import socket
+import time
 
-# Specify the file to send
-FILE_PATH = "cat.jpg"
-RECEIVER_URL = "http://receiver:5000/upload"
+HOST = "receiver"
+PORT = 5000
 
-def send_file():
-    # Check if the file exists
-    if not os.path.exists(FILE_PATH):
-        print(f"Error: File '{FILE_PATH}' not found!")
-        return
+while True:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((HOST, PORT))
+            s.sendall(b"Hello from Sender!")
+            print("Message sent.")
+            time.sleep(5)
+    except Exception as e:
+        print("Retrying connection:", e)
+        time.sleep(5)
 
-    # Open the file in binary mode and send it via a POST request
-    with open(FILE_PATH, "rb") as file:
-        try:
-            response = requests.post(RECEIVER_URL, files={"file": file})
-            print(f"Response: {response.status_code} - {response.text}")
-        except requests.exceptions.RequestException as e:
-            print(f"Error: Could not connect to receiver. {e}")
-
-if __name__ == "__main__":
-    send_file()

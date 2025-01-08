@@ -1,27 +1,19 @@
-import os
-from flask import Flask, request
+import socket
 
-app = Flask(__name__)
-UPLOAD_FOLDER = "./uploads/"
+HOST = "0.0.0.0"
+PORT = 5000
 
-# Ensure the upload directory exists
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    print("Receiver is listening...")
+    while True:
+        conn, addr = s.accept()
+        with conn:
+            print("Connected by", addr)
+            data = conn.recv(1024)
+            if data:
+                print("Message received:", data.decode())
 
-@app.route("/upload", methods=["POST"])
-def upload_file():
-    if "file" not in request.files:
-        return "Error: No file part in the request.", 400
-
-    file = request.files["file"]
-    if file.filename == "":
-        return "Error: No file selected.", 400
-
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    file.save(file_path)
-    return f"File received and saved as {file_path}", 200
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-    
 
 
