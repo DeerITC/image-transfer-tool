@@ -5,9 +5,14 @@ services:
      context: ./sender
    depends_on:
      - receiver
+
  receiver:
    build:
-#the network_mode was added here
      context: ./receiver
-   ports:
-     - "5000:5000" 
+   networks:
+    - vision-net
+    
+networks:
+  vision-net:
+    name: Vision-net
+    driver: bridge
