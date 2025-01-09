@@ -1,12 +1,13 @@
-version: "3.8"
+version: '3.8'
 services:
-  sender:
-    build:
-      context: ./sender
-    depends_on:
-      - receiver
-  receiver:
-    build:
-      context: ./receiver
-    ports:
-      - "5000:5000"
+ sender:
+   build:
+     context: ./sender
+   depends_on:
+     - receiver
+ receiver:
+   build:
+   network_mode: host
+     context: ./receiver
+   ports:
+     - "5000:5000" 

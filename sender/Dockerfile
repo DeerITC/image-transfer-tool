@@ -1,4 +1,5 @@
-FROM python:3.9-slim
+FROM python:3.9
 WORKDIR /app
-COPY app.py .
-CMD ["python", "app.py"]
+COPY sender.py requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python","sender.py"]
