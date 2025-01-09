@@ -9,10 +9,11 @@ services:
  receiver:
    build:
      context: ./receiver
-   networks:
-    - vision-net
-    
-networks:
-  vision-net:
-    name: Vision-net
-    driver: bridge
+   network_mode: host
+#    networks:
+#     - vision-net
+
+# networks:
+#   vision-net:
+#     name: Vision-net
+#     driver: bridge
