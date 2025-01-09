@@ -7,7 +7,7 @@ services:
      - receiver
  receiver:
    build:
-   network_mode: host
+#the network_mode was added here
      context: ./receiver
    ports:
      - "5000:5000" 
